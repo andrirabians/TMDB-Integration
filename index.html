@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Index</title>
     <link rel="stylesheet" href="./assets/css/style.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -16,11 +16,11 @@
     <header class="header">
       <h1>NetDB</h1>
       <nav>
-        <a href="#">HOME</a>
+        <a href="./index.html">HOME</a>
         <a href="#">MOVIES</a>
         <a href="#">TV SERIES</a>
         <a href="#">TRAILERS</a>
-        <a href="#">NEWS</a>
+        <a href="#">FAVORITES</a>
         <a href="#">ABOUT US</a>
       </nav>
       <div class="box-sign">
@@ -34,6 +34,7 @@
         <p>Cari Film Favoritmu!</p>
         <form id="formInput" class="search-box">
           <input
+            name="inputName"
             class="inputBox"
             type="search"
             placeholder="Ketik Judul Film.."
@@ -42,17 +43,113 @@
             Search
           </button>
         </form>
-        <div class="listMovieFilter">
-        </div>
-        <div class="isLoading"></div>
       </section>
-      <!-- <section class="sectionNowPlaying" id="nowPlaying">
+      <section class="sectionNowPlaying" id="nowPlaying">
         <h2>Now Playing Movies</h2>
-        <div class="movie-list"></div>
-      </section>  -->
+        <div class="movie-list">
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+          <div class="movie-card loading">
+            <div class="img-placeholder"></div>
+            <h3>&nbsp;</h3>
+            <span>&nbsp;</span>
+          </div>
+        </div>
+      </section>
     </main>
-    <script type="module" src="./scripts/search.js"></script>
-    <!-- <script type="module" src="./scripts/script.js"></script>  -->
-    
+    <script type="module" src="./scripts/script.js"></script>
   </body>
 </html>

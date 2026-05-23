@@ -6,6 +6,17 @@
         monospace;
 }
 
+@keyframes pop {
+    0%{
+        transform: scale(1);
+    }
+    50%{
+        transform: scale(1.4);
+    }
+    100%{
+        transform:scale(1)
+    }
+}
 .header {
     background-color: black;
     color: red;
@@ -37,7 +48,7 @@
     color: rgb(110, 38, 38);
 }
 
-/* .movie-card img{
+.movie-card img{
     border-radius: 16px;
     width: 100%;
     height: 230px;
@@ -46,6 +57,11 @@
 .movie-card{
     min-width: 160px;
     width: 160px;
+}
+
+.movie-card a{
+    color: black;
+    text-decoration: none;
 }
 
 .movie-card:hover{
@@ -63,7 +79,11 @@
 
 .sectionNowPlaying{
     padding :60px 150px;
-} */
+}
+
+.sectionNowPlaying h2 {
+    padding-left: 20px;
+}
 
 .searchSection {
     display: flex;
@@ -108,11 +128,260 @@
     justify-content: center
 }
 
-.movie-card-filtered img {
-  width: 100%;
-  border-radius: 8px;
-  transition: transform 0.3s;
+.movie-card.loading .img-placeholder{
+    background-color: gray;
+    min-width: 160px;
+    height:230px;
+    border-radius: 16px;
 }
 
-.movie-card-filtered img:hover {
-  transform: scale(1.05);}
+.movie-card.loading h3{
+    min-width: 160px;
+    background-color: gray;
+    margin-top: 12px;
+}
+
+.movie-card.loading span{
+    display: block;
+    margin-top: 6px;
+    background-color: gray;
+    min-width: 160px;
+}
+
+/* DETAIL CONTAINER */
+#hero {
+    display: flex;
+    justify-content: center; 
+    position: relative;
+    min-height: 500px;
+    overflow: hidden;
+}
+
+#hero .bgImg{
+    position:absolute;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    top: 0;
+    left: 0;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+}
+
+#hero::after{
+    content: "";
+    background-color: rgba(17, 16, 20, 0.8);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    display: block;
+}
+
+#hero .heroContent{
+    padding: 30px 40px;
+    display: flex;
+    z-index: 1;
+    position: relative;
+}
+
+#hero .heroContent .detailContent{
+    padding-left: 40px;
+    max-width: 980px;
+}
+
+#hero .heroContent img{
+    height: 450px;
+    min-width: 300px;
+    z-index: 1;
+    object-fit: cover;
+    display: none;
+}
+
+.titleContent{
+    display: flex;
+}
+.detailContent h2{
+    color: white ;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.detailContent span{
+    color: white;
+    font-size: 30px;
+}
+
+.genre_dates_runtime {
+    color: white;
+    font-size: 18px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.buttonPlayTrailer {
+    gap:20px;
+    display: flex;
+}
+
+.btn-add-list{
+    width: 46px;
+    height: 46px;
+    background-color: rgba(3, 37, 65, 1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.btn-add-list svg{
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-fav{
+    width: 46px;
+    height: 46px;
+    background-color: rgba(3, 37, 65, 1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.btn-fav svg{
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-fav svg:active{
+    color:red;
+    animation : pop 0.3s ease;
+}
+
+.btn-watchlist{
+    width: 46px;
+    height: 46px;
+    background-color: rgba(3, 37, 65, 1);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 12px 0;
+    cursor: pointer;
+}
+
+.btn-watchlist svg{
+    color: white;
+    width: 20px;
+    height: 20px;
+}
+
+.btn-playtrailer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    background: transparent;
+    width: auto;
+    height: auto;
+    font-weight: 600;
+    will-change: opacity;
+    transition: linear 0.1s;
+    color: white;
+    font-size: 20px;
+    cursor: pointer;
+}
+
+.tagLine{
+    color: gray;
+    font-size: 20px;
+    font-style: italic;
+}
+
+.fontOverview {
+    color: white;
+    font-size: 25px;
+}
+
+.textOverview{
+    color: white;
+    font-size: 15px;
+}
+
+/* Loading */
+.isLoading{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    color: white;
+    background-color: black;
+    z-index: 500;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@keyframes spin {
+    to{
+        transform:rotate(360deg)
+    }
+}
+
+.spinner{
+    border: 10px solid gray;
+    border-radius: 50%;
+    width: 90px;
+    height: 90px;
+    animation: spin .3s linear infinite;
+    border-top: 10px solid white;
+}
+
+/* MODAL*/
+.modal-video{
+    position: fixed;
+    background-color: rgba(32, 29, 37, 0.432);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    z-index: 10;
+    display: none;
+}
+
+.modal-inner{
+    color: white;
+    background-color: rgba(0, 0, 0, 0.767);
+    width: 80%;
+    height: 80%;
+}
+
+.modal-inner .header-modal{
+    padding: 15px 24px
+}
+
+.header-modal{
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-close-modal{
+    color: white;
+    background-color: transparent;
+    font-size: 25px;
+    border: none;
+    cursor:pointer
+}
