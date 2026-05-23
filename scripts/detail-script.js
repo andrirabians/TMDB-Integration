@@ -3,9 +3,26 @@ import { API_READ_ACCESS_TOKEN } from "./config.js";
 const urlParams = new URLSearchParams(window.location.search);
 const movieId = urlParams.get("id");
 
+const templateCrew = (crew) => {
+  return `<div class="director-writer">
+                    <h4>${crew.name}</h4>
+                    <span>${crew.job}</span>
+  </div>`;
+};
+
+const templateActor = (actor) => {
+  return `<div class="actor-card">
+                    <img src="https://image.tmdb.org/t/p/w500${actor.profile_path}" alt="/assets/img/No_Image_Available.jpg" />
+                    <span>${actor.name}</span>
+                    <p>${actor.character}</p>
+  </div>`;
+};
+
 const detailMovieApi = () => {
   let movie = {};
   let videos = [];
+  let importantCrew = [];
+  let actorCast = [];
   return {
     getDataFetch: async (id) => {
       const url = `https://api.themoviedb.org/3/movie/${id}`;
@@ -67,22 +84,71 @@ const detailMovieApi = () => {
         },
       });
       const data = await response.json();
-      videos = data.results.filter((video) => video.site ==="YouTube")
-      console.log(videos)
-      const iframeVideo = document.querySelector(".modal-inner iframe")
+      videos = data.results.filter((video) => video.site === "YouTube");
+      const iframeVideo = document.querySelector(".modal-inner iframe");
       iframeVideo.src = `https://www.youtube.com/embed/${videos[0].key}`;
     },
-    getMovie : ()=> {return movie}
+    getMovie: () => {
+      return movie;
+    },
+    getCrew: async (id) => {
+      const url = `https://api.themoviedb.org/3/movie/${id}/credits`;
+
+      const response = await fetch(url, {
+        headers: {
+          Authorization: `Bearer ${API_READ_ACCESS_TOKEN}`,
+        },
+      });
+      const data = await response.json();
+      const importanJobs = ["Director", "Writer", "Story", "Character"];
+      importantCrew = data.crew.filter((crews) =>
+        importanJobs.includes(crews.job),
+      );
+      actorCast = data.cast.filter((cast)=>cast.profile_path !=null);
+    },
+    renderCrew: () => {
+      const listCrew = document.querySelector(".staff");
+      let templateStaff = "";
+      importantCrew.forEach((crew) => {
+        templateStaff += templateCrew(crew);
+      });
+      listCrew.innerHTML = templateStaff;
+      const actorCrew = document.querySelector(".container-cast");
+      let actorTemplate = "";
+
+      actorCast.forEach((actor) => {
+        actorTemplate += templateActor(actor);
+      });
+      actorCrew.innerHTML = actorTemplate;
+    },
   };
 };
 
 const detailMovie = detailMovieApi();
 
+const checkFavorite = () => {
+  let movieFav = JSON.parse(localStorage.getItem("movie-fav")) || [];
+  let isExist = false;
+  const btnFav = document.querySelector(".btn-fav");
+  const currMovie = detailMovie.getMovie();
+
+  movieFav.forEach((movie) => {
+    if (movie.id === currMovie.id) {
+      isExist = true;
+    }
+  });
+  if (isExist) {
+    btnFav.classList.add("active");
+  }
+
+  return isExist;
+};
 const init = async () => {
   await detailMovie.getDataFetch(movieId);
   detailMovie.render();
-  detailMovie.getTrailer(movieId);
-
+  await detailMovie.getTrailer(movieId);
+  await detailMovie.getCrew(movieId);
+  detailMovie.renderCrew();
   const isLoading = document.querySelector(".isLoading");
   isLoading.remove();
   const btnTrailer = document.querySelector(
@@ -93,22 +159,29 @@ const init = async () => {
     const modalTrailer = document.querySelector(".modal-video");
     const closeModal = document.querySelector(".btn-close-modal");
     modalTrailer.style.display = "flex";
-    
+
     closeModal.addEventListener("click", () => {
       modalTrailer.style.display = "none";
     });
   });
 
-  const btnFav= document.querySelector(".btn-fav", (event)=>{
-      event.preventDefault();
+  const btnFav = document.querySelector(".btn-fav");
+  btnFav.addEventListener("click", (event) => {
+    event.preventDefault();
+    const currentMovie = detailMovie.getMovie();
+    let movieFavorite = JSON.parse(localStorage.getItem("movie-fav")) || [];
+    const isExist = checkFavorite();
 
-      if(!localStorage.getItem("movie-fav")){
-        localStorage.setItem("movie-fav", JSON.stringify([]))
-      }
-      const movieFav = JSON.parse(localStorage.getItem("movie-fav"))
-      movieFav.push(detailMovie.getMovie())
-      
-      localStorage.setItem("movie-fav", JSON.stringify(movieFav))
-  })
+    if (!isExist) {
+      movieFavorite.push(currentMovie);
+      btnFav.classList.add("active");
+    } else {
+      movieFavorite = movieFavorite.filter(
+        (movie) => movie.id !== currentMovie.id,
+      );
+      btnFav.classList.remove("active");
+    }
+    localStorage.setItem("movie-fav", JSON.stringify(movieFavorite));
+  });
 };
 init();
